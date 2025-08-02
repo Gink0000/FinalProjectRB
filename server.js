@@ -11,9 +11,13 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:5173', 
+  origin: [
+    'https://fntend-oe5ffji44-ginkos-projects-5b807f85.vercel.app',
+    'http://localhost:5173'
+  ],
   credentials: true
 }));
+
 app.use(cookieParser());
 app.use(express.json());
 
@@ -26,6 +30,7 @@ mongoose
   .then(() => console.log("Connected to MongoDB Atlas"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-app.listen(4000, () => {
-  console.log('REST API running at http://localhost:4000');
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`REST API running on port ${PORT}`);
 });
